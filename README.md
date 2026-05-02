@@ -1,226 +1,207 @@
-# **🚀 Deploying Super Mario on AWS EKS using Terraform**  
+# 🚀 Deploying Super Mario on AWS EKS using Terraform
 
-Super Mario is a legendary game we all cherish! In this project, we will deploy **Super Mario** on **Amazon EKS (Elastic Kubernetes Service)** using **Terraform** and manage infrastructure with AWS resources.  
+Bring a classic to the cloud. This project demonstrates how to deploy the iconic **Super Mario** game on **Amazon EKS (Elastic Kubernetes Service)** using **Terraform** for infrastructure provisioning and Kubernetes manifests for application deployment.
 
-![Super Mario](https://imgur.com/Njqsei9.gif)  
-
----
-
-## 📌 **Project Overview**
-
-This project provisions an **EKS cluster** on AWS and deploys the **Super Mario game** using **Terraform** and **Kubernetes manifests**. The deployment includes:
-
-- ✅ **Amazon EKS Cluster** (v1.29) with latest features
-- ✅ **Terraform Infrastructure as Code** (v1.8+)
-- ✅ **Kubernetes Deployment & Service** with best practices
-- ✅ **AWS S3 Backend** for Terraform state management
-- ✅ **IAM roles & policies** with least-privilege access
-- ✅ **CloudWatch logging** and monitoring
-- ✅ **Horizontal Pod Autoscaling** for automatic scaling
-- ✅ **Network policies** for enhanced security
-- ✅ **ServiceMonitor** for Prometheus integration
-- ✅ **AWS Load Balancer Controller** support
-- ✅ **Health checks** and rolling updates
+![Super Mario](https://imgur.com/Njqsei9.gif)
 
 ---
 
-## **📁 Project Structure**  
+## 📌 Project Overview
+
+This project provisions a production-ready **EKS cluster** on AWS and deploys the **Super Mario application** with modern DevOps best practices.
+
+### ✔️ Key Capabilities
+- Amazon EKS Cluster (v1.29)
+- Terraform (v1.8+) Infrastructure as Code
+- Kubernetes Deployment & Service
+- Remote state management using AWS S3
+- IAM roles & policies with least-privilege access
+- CloudWatch logging & monitoring
+- Horizontal Pod Autoscaling (HPA)
+- Network policies for enhanced security
+- Prometheus integration via ServiceMonitor
+- AWS Load Balancer Controller support
+- Health checks and rolling updates
+
+---
+
+## 📁 Project Structure
 
 ```bash
 📂 DEPLOYMENT-OF-SUPER-MARIO
-│── 📂 EKS-TF               # Terraform configuration files for AWS EKS
-│   ├── backend.tf          # S3 backend for Terraform state management
-│   ├── main.tf             # AWS EKS Cluster and Node Group definition
-│   ├── provider.tf         # AWS provider configuration
-│   ├── variables.tf        # Input variables for configuration
-│   ├── outputs.tf          # Output values after deployment
-│   ├── terraform.tfvars.example # Example configuration file
-│   ├── deployment.yaml     # Kubernetes Deployment for Super Mario
-│   ├── service.yaml        # Kubernetes Service for exposing Super Mario app
-│   ├── horizontal-pod-autoscaler.yaml  # HPA for automatic scaling
-│   ├── network-policy.yaml # Network security policies
-│   └── service-monitor.yaml # Prometheus monitoring configuration
-│── 📄 README.md            # Project documentation
+│── 📂 EKS-TF
+│   ├── backend.tf
+│   ├── main.tf
+│   ├── provider.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   ├── terraform.tfvars.example
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   ├── horizontal-pod-autoscaler.yaml
+│   ├── network-policy.yaml
+│   └── service-monitor.yaml
+│── 📄 README.md
 ```
 
 ---
 
-## **📌 Prerequisites**  
+## 📌 Prerequisites
 
-Before proceeding, ensure you have the following installed:
+Ensure the following tools are installed and configured:
 
-- ✅ **Terraform** (>=1.8.0)  
-- ✅ **AWS CLI** (Configured with proper credentials)  
-- ✅ **kubectl** (For managing Kubernetes resources)  
-- ✅ **Docker** (For containerization)  
-- ✅ **AWS Key Pair** named `eks-key` (for node access)  
+- Terraform (>= 1.8.0)
+- AWS CLI (with credentials configured)
+- kubectl
+- Docker
+- AWS Key Pair named `eks-key`
 
 ---
 
-## **🛠️ Setup & Deployment**  
+## 🛠️ Setup & Deployment
 
-### **1️⃣ Clone the Repository**  
+### 1️⃣ Clone Repository
 
 ```bash
-https://github.com/BuildWithNil/Deploying-Super-Mario-on-AWS-EKS-using-Terraform.git
+git clone https://github.com/BuildWithNil/Deploying-Super-Mario-on-AWS-EKS-using-Terraform.git
 cd Deploying-Super-Mario-on-AWS-EKS-using-Terraform/EKS-TF
 ```
 
-### **2️⃣ Configure Terraform Variables**  
-
-Copy the example variables file and customize as needed:
+### 2️⃣ Configure Variables
 
 ```bash
 cp terraform.tfvars.example terraform.tfvars
-# Edit terraform.tfvars with your preferred configuration
 ```
 
-**Cost Optimization Tips:**
-- Use `t3.small` instead of `t3.medium` for lower cost
-- Set `desired_size = 1` and `max_size = 2` for development
-- Reduce `disk_size` to 20GB if storage requirements are low
-- Set `log_retention_days` to 7 for production or 3 for development
+Update values as needed.
 
-### **3️⃣ Initialize & Apply Terraform**  
+#### 💡 Cost Optimization Tips
+- Use `t3.small` for lower cost
+- Set `desired_size = 1`, `max_size = 2` for dev
+- Reduce `disk_size` to 20GB if needed
+- Lower log retention (3–7 days)
+
+---
+
+### 3️⃣ Initialize & Deploy
 
 ```bash
-terraform init      # Initialize Terraform backend
-terraform plan      # Preview infrastructure changes
-terraform apply -auto-approve  # Deploy to AWS
+terraform init
+terraform plan
+terraform apply -auto-approve
 ```
 
-### **4️⃣ Configure Kubernetes Context**  
+---
+
+### 4️⃣ Configure Kubernetes
 
 ```bash
 aws eks update-kubeconfig --name EKS_CLOUD --region ap-south-1
 ```
 
-### **5️⃣ Deploy Super Mario Application**  
+---
+
+### 5️⃣ Deploy Application
 
 ```bash
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 kubectl apply -f horizontal-pod-autoscaler.yaml
 kubectl apply -f network-policy.yaml
-# Optional: Apply if you have Prometheus installed
-kubectl apply -f service-monitor.yaml
+kubectl apply -f service-monitor.yaml   # Optional
 ```
 
-### **6️⃣ Access the Application**  
+---
 
-Once deployed, get the external LoadBalancer URL:  
+### 6️⃣ Access Application
 
 ```bash
 kubectl get services mario-service
 ```
 
-Access **Super Mario** in your browser using the displayed URL.
+Use the LoadBalancer URL in your browser.
 
-### **7️⃣ Monitor the Deployment**  
+---
+
+### 7️⃣ Monitor Deployment
 
 ```bash
-# Check deployment status
 kubectl get deployment mario-deployment
-
-# Check pods
 kubectl get pods -l app=mario
-
-# Check HPA status
 kubectl get hpa mario-hpa
-
-# Check logs
 kubectl logs -l app=mario --tail=50
-
-# Check autoscaling events
 kubectl describe hpa mario-hpa
 ```
 
 ---
 
-## **🎯 Project Highlights**
+## 🎯 Project Highlights
 
-- **AWS EKS v1.29**: Latest managed Kubernetes cluster with enhanced features  
-- **Terraform v1.8+**: Modern Infrastructure as Code with improved provider versions  
-- **Kubernetes Best Practices**: Security contexts, resource limits, and health checks  
-- **AWS S3 Backend**: Remote state management with DynamoDB locking  
-- **CloudWatch Logging**: Centralized log collection and monitoring  
-- **Auto Scaling**: Horizontal Pod Autoscaler for dynamic resource management  
-- **Network Security**: Network policies for traffic control  
-- **Load Balancer**: NLB with health checks and session affinity  
-- **Monitoring Ready**: Prometheus integration via ServiceMonitor  
-- **Security Hardened**: IAM roles with least-privilege access  
+- Modern Kubernetes on AWS EKS v1.29
+- Infrastructure automation using Terraform
+- Secure IAM and networking practices
+- Scalable architecture with HPA
+- Observability with CloudWatch & Prometheus
+- Production-ready deployment design
 
 ---
 
-## **� Configuration Details**
+## ⚙️ Configuration Summary
 
-### **EKS Cluster Configuration**
-- **Version**: 1.29 (Latest stable)
-- **Node Group**: t3.medium instances with 30GB disk
-- **Scaling**: 1-4 nodes with desired size of 2
-- **Logging**: All control plane logs enabled
-- **Security**: Private and public endpoint access
+### EKS Cluster
+- Version: 1.29
+- Instance Type: t3.medium
+- Scaling: 1–4 nodes
+- Logging enabled
+- Public & private endpoint access
 
-### **Kubernetes Resources**
-- **Replicas**: 3 pods with auto-scaling up to 10
-- **Resources**: CPU requests 100m, limits 500m; Memory requests 128Mi, limits 512Mi
-- **Health Checks**: Liveness, readiness, and startup probes
-- **Security**: Security contexts and capability dropping
+### Kubernetes
+- 3 replicas (auto-scale to 10)
+- CPU: 100m–500m
+- Memory: 128Mi–512Mi
+- Liveness & readiness probes
 
-### **Monitoring & Observability**
-- **CloudWatch**: 14-day log retention
-- **Prometheus**: Ready for metrics collection
-- **HPA**: CPU and memory-based scaling
-- **Network Policies**: Traffic control and security
-
-### **Cost Optimization**
-- **On-Demand Instances**: Predictable pricing
-- **Auto Scaling**: Scale down during low traffic
-- **Resource Limits**: Prevent resource over-allocation
-- **Log Retention**: 14-day retention to manage storage costs  
+### Monitoring
+- CloudWatch logs (14 days)
+- Prometheus-ready
+- HPA (CPU & Memory based)
 
 ---
 
-## **🔗 Resources & Documentation**
+## 🔗 Documentation
 
-- **Terraform Docs**: [https://developer.hashicorp.com/terraform/docs](https://developer.hashicorp.com/terraform/docs)  
-- **AWS EKS Docs**: [https://docs.aws.amazon.com/eks/latest/userguide](https://docs.aws.amazon.com/eks/latest/userguide)  
-- **Kubernetes Docs**: [https://kubernetes.io/docs/home/](https://kubernetes.io/docs/home/)  
-- **AWS Load Balancer Controller**: [https://kubernetes-sigs.github.io/aws-load-balancer-controller/](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)  
-- **Prometheus Monitoring**: [https://prometheus.io/docs/](https://prometheus.io/docs/)  
-
----
-
-## **📢 Credits & Acknowledgments**  
-
-This project is inspired by the **Super Mario** game, and it demonstrates real-world **DevOps practices** using AWS, Terraform, and Kubernetes.  
-
-🚀 *Happy Gaming & DevOps-ing!* 🎮
+- Terraform: https://developer.hashicorp.com/terraform/docs
+- AWS EKS: https://docs.aws.amazon.com/eks/latest/userguide
+- Kubernetes: https://kubernetes.io/docs/home/
+- AWS Load Balancer Controller: https://kubernetes-sigs.github.io/aws-load-balancer-controller/
+- Prometheus: https://prometheus.io/docs/
 
 ---
 
-## 🤝 **Contributing**  
+## 📢 Acknowledgment
 
-Contributions are welcome! If you'd like to improve this project, feel free to submit a pull request.  
-
----
-
-## **Hit the Star!** ⭐
-
-**If you find this repository helpful and plan to use it for learning, please give it a star. Your support is appreciated!**
+Inspired by the timeless **Super Mario** game, this project showcases real-world DevOps implementation using AWS, Terraform, and Kubernetes.
 
 ---
 
-## 🛠️ **Author & Community**  
+## 🤝 Contributing
 
-This project is crafted by **[Nilamadhab](https://github.com/BuildWithNil)** 💡.  
-I’d love to hear your feedback! Feel free to share your thoughts.  
-
----
-
-### 📧 **Connect with me:**
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/buildwithnil) [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/BuildWithNil)
+Contributions are welcome. Feel free to fork the repo and submit a pull request.
 
 ---
 
+## ⭐ Support
+
+If you find this project useful, consider giving it a star.
+
+---
+
+## 👨‍💻 Author
+
+**Nilamadhab Das**  
+GitHub: https://github.com/BuildWithNil  
+LinkedIn: https://linkedin.com/in/buildwithnil
+
+---
+
+🚀 Happy Learning & Building!
