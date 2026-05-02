@@ -2,7 +2,7 @@
 
 Bring a classic to the cloud. This project demonstrates how to deploy the iconic **Super Mario** game on **Amazon EKS (Elastic Kubernetes Service)** using **Terraform** for infrastructure provisioning and Kubernetes manifests for application deployment.
 
-![Super Mario](https://imgur.com/Njqsei9.gif)
+![Super Mario](https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif)
 
 ---
 
@@ -204,4 +204,4 @@ LinkedIn: https://linkedin.com/in/buildwithnil
 
 ---
 
-🚀 Happy Learning & Building!
+🚀 Build With Nil
