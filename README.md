@@ -63,7 +63,7 @@ Before proceeding, ensure you have the following installed:
 
 ```bash
 https://github.com/BuildWithNil/Deploying-Super-Mario-on-AWS-EKS-using-Terraform.git
-cd Deployment-of-super-Mario-on-Kubernetes-using-terraform/EKS-TF
+cd Deploying-Super-Mario-on-AWS-EKS-using-Terraform/EKS-TF
 ```
 
 ### **2️⃣ Configure Terraform Variables**  
@@ -195,7 +195,7 @@ kubectl describe hpa mario-hpa
 
 This project is inspired by the **Super Mario** game, and it demonstrates real-world **DevOps practices** using AWS, Terraform, and Kubernetes.  
 
-👉 **Read the detailed blog here**: [Super Mario EKS Deployment](https://blog.prodevopsguy.xyz/deployment-of-super-mario-on-kubernetes-using-terraform)  
+👉 **Read the detailed blog here**: [Super Mario EKS Deployment](https://blog.prodevopsguy.xyz/Deploying-Super-Mario-on-AWS-EKS-using-Terraform)  
 
 🚀 *Happy Gaming & DevOps-ing!* 🎮
 
